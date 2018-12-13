@@ -11,23 +11,26 @@ namespace ConsoleApp1
         {
             SessionController Controller = new SessionController();
             Controller.Initialise();
+
             Console.ReadKey();
         }
     }
-        
+
     class SessionController //singleton method
     {
         public SessionController()
         {
-            
+
         }
 
         public void Initialise()
         {
-            string UserTitle ="";
+            string UserTitle = "";
             Menu(UserTitle);
             DBInterface Interface = new DBInterface();
             JObject FilmData = Interface.GetDataRecords(UserTitle);
+            DisplayFilmInfo(FilmData);
+
         }
 
         public void Menu(string UserTitle)
@@ -35,6 +38,15 @@ namespace ConsoleApp1
             Console.WriteLine("Enter movie title");
             UserTitle = Console.ReadLine();
 
+        }
+
+        public void DisplayFilmInfo(JObject FilmData)
+        {
+            foreach (JProperty property in FilmData.Properties())
+            {
+                Console.WriteLine(property.Name + " - " + property.Value);
+            }
+            FilmData.Properties();
         }
     }
 
@@ -62,6 +74,31 @@ namespace ConsoleApp1
             }
         }
     }
+
+    class Wishlist
+    {
+        Wishlist()
+        {
+        }
+
+        void Save()
+        {
+
+        }
+
+        void Load()
+        {
+
+        }
+        void Add()
+        {
+
+
+        }
+
+    }
+
+
 }
 
 
